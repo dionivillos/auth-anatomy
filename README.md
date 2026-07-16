@@ -11,7 +11,7 @@ See [CLAUDE.md](CLAUDE.md) for the full technical spec and task plan.
 
 | Module | Topic | Status |
 |---|---|---|
-| 00 | Project setup | Not started |
+| 00 | Project setup | Done |
 | 01 | Passwords & registration | Not started |
 | 02 | Sessions from scratch | Not started |
 | 03 | Email flows | Not started |
