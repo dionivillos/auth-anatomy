@@ -1,0 +1,58 @@
+[project]
+name = "auth-anatomy"
+version = "0.1.0"
+description = "A complete authentication system built from scratch in Python."
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.18.5",
+    "argon2-cffi>=25.1.0",
+    "cryptography>=49.0.0",
+    "fastapi[standard-no-fastapi-cloud-cli]>=0.139.1",
+    "httpx>=0.28.1",
+    "jinja2>=3.1.6",
+    "pydantic-settings>=2.14.2",
+    "python-multipart>=0.0.32",
+    "segno>=1.6.6",
+    "sqlalchemy>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.0",
+    "pre-commit>=4.6.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.21",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "S"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "segno.*"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[tool.coverage.run]
+source = ["authcore", "app"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
