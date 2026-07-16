@@ -157,7 +157,7 @@ HTML pages: GET/POST /signup, /login, /login/2fa, GET /verify-email, GET/POST /f
 
 Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff clean. A module is done when: its lesson doc exists in `docs/lessons/`, README updated, git tag created.
 
-**Module 00 - Setup**
+### Module 00 - Setup
 1. Init repo: uv project, pyproject with pinned deps, ruff, mypy strict, pytest, pre-commit.
    - Files: pyproject.toml, .pre-commit-config.yaml, .env.example
    - Accept: `uv sync`, `uv run ruff check .`, `uv run mypy .`, `uv run pytest` all succeed on empty skeleton.
@@ -170,7 +170,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
 4. README v1 (curriculum index, quickstart) + docs/lessons/00-project-setup.md.
    - Accept: docs exist; tag `v0.1-module-00` created after 3+4.
 
-**Module 01 - Passwords & registration**
+### Module 01 - Passwords & registration
 5. SQLAlchemy + Alembic + initial `users` migration.
    - Files: app/db.py, app/models.py, alembic/
    - Accept: `alembic upgrade head` creates users table; model test green.
@@ -185,7 +185,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
    - Accept: integration test registers a user; duplicate email returns neutral response; password stored as Argon2id PHC string.
 10. Lesson docs/lessons/01-passwords.md + tag `v0.2-module-01`.
 
-**Module 02 - Sessions**
+### Module 02 - Sessions
 11. authcore/tokens.py: generate (secrets, >=160 bits, base32), sha256_hex helper, constant-time compare.
     - Accept: entropy/length tests; hashing deterministic.
 12. `sessions` migration + repository + session service (create, validate, sliding expiry, revoke one/all).
@@ -196,7 +196,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: integration tests for full login/logout cycle; login response never distinguishes "no such user" from "wrong password".
 15. Lesson 02-sessions.md + tag `v0.3-module-02`.
 
-**Module 03 - Email flows**
+### Module 03 - Email flows
 16. docker-compose.yml with Mailpit + app/emails sender (SMTP via config) + plain-text templates.
     - Accept: test email visible in Mailpit UI; sender unit-tested with a fake SMTP transport.
 17. `one_time_tokens` migration + service with atomic consume (validate + delete in one transaction).
@@ -209,7 +209,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: wrong current password is 401; other sessions invalidated.
 21. Lesson 03-email-flows.md + tag `v0.4-module-03`.
 
-**Module 04 - Hardening & PostgreSQL**
+### Module 04 - Hardening & PostgreSQL
 22. `throttles` migration + authcore/ratelimit.py + apply to login, forgot, verify (429 + Retry-After; progressive lockout: e.g. 5 fails -> 15 min).
     - Accept: 6th rapid login attempt gets 429; lock expires.
 23. `audit_log` migration + event recording in all existing services (login.success/failed, password.reset, etc.).
@@ -220,7 +220,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: CI green on both engines.
 26. Lesson 04-hardening.md + tag `v0.5-module-04`.
 
-**Module 05 - JWT from scratch**
+### Module 05 - JWT from scratch
 27. authcore/jwt.py: base64url encode/decode, HS256 sign/verify with hmac, claims validation (exp, iat, nbf, iss, aud, leeway), reject unexpected `alg` and `none`.
     - Accept: round-trip tests; tampered header/payload/signature rejected; alg-confusion and none-attack tests; interop check against a known-good token fixture.
 28. POST /api/v1/auth/token issuing 15-min access tokens.
@@ -231,7 +231,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: /api/v1/auth/me works with both auth methods.
 31. Lesson 05-jwt.md (includes sessions-vs-JWT essay) + tag `v0.6-module-05`.
 
-**Module 06 - TOTP from scratch**
+### Module 06 - TOTP from scratch
 32. authcore/totp.py: HOTP (RFC 4226) + TOTP (RFC 6238), HMAC-SHA1, 6 digits, 30 s step.
     - Accept: ALL official RFC 4226 and RFC 6238 test vectors pass.
 33. Enrollment: `totp_credentials` migration, Fernet-encrypted secret (key from env), otpauth:// URI, QR via segno, activation with first valid code.
@@ -242,7 +242,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: recovery code works once only; regeneration invalidates old codes.
 36. Lesson 06-totp.md + tag `v0.7-module-06`.
 
-**Module 07 - OAuth 2.0 client**
+### Module 07 - OAuth 2.0 client
 37. Create GitHub OAuth App; config (GITHUB_CLIENT_ID/SECRET); setup doc.
     - Accept: .env.example updated; setup steps documented in the lesson.
 38. authcore/oauth.py: authorization URL builder (state, PKCE S256), callback validation, code exchange and profile fetch via injected httpx client.
@@ -253,7 +253,7 @@ Work strictly in order. A task is done when: code + tests pass CI, mypy/ruff cle
     - Accept: end-to-end test with mocked provider; unlink guard test.
 41. Lesson 07-oauth.md + tag `v0.8-module-07`. (Optional: Google as second provider to prove the abstraction.)
 
-**Module 08 - Passkeys & capstone**
+### Module 08 - Passkeys & capstone
 42. py_webauthn integration: `webauthn_credentials` migration, registration ceremony (options/verify endpoints), minimal JS in app/static for navigator.credentials.
     - Accept: registration ceremony test with library-generated fixtures; credential persisted.
 43. Authentication ceremony (passkey login); sign_count must increase, regression audited as possible cloning.
