@@ -12,7 +12,7 @@ See [CLAUDE.md](CLAUDE.md) for the full technical spec and task plan.
 | Module | Topic | Status |
 |---|---|---|
 | 00 | Project setup | Done |
-| 01 | Passwords & registration | Not started |
+| 01 | Passwords & registration | Done |
 | 02 | Sessions from scratch | Not started |
 | 03 | Email flows | Not started |
 | 04 | Hardening & PostgreSQL | Not started |
@@ -21,8 +21,9 @@ See [CLAUDE.md](CLAUDE.md) for the full technical spec and task plan.
 | 07 | OAuth 2.0 client | Not started |
 | 08 | Passkeys & capstone | Not started |
 
-Each module ships tested code, a lesson document in `docs/lessons/`, and a git tag
-(`v0.N-module-NN`). Checking out a tag gives you the working system at that point in the curriculum.
+Each module ships tested code, a lesson document in `docs/lessons/` (with self-check questions and
+hands-on coding exercises under `exercises/`), and a git tag (`v0.N-module-NN`). Checking out a tag
+gives you the working system at that point in the curriculum.
 
 ## Quickstart
 
