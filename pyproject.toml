@@ -28,6 +28,9 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py313"
+# Lesson exercises are intentionally incomplete stubs; they are not part of the
+# shipped code and are excluded from linting/type-checking/CI test collection.
+extend-exclude = ["exercises"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "S"]
@@ -41,6 +44,7 @@ python_version = "3.13"
 strict = true
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
+exclude = ["^exercises/"]
 
 [[tool.mypy.overrides]]
 module = "segno.*"
