@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from sqlalchemy import DateTime, String
+from sqlalchemy import DateTime, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db import Base
@@ -43,3 +43,34 @@ class User(Base):
 
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, email={self.email!r})"
+
+
+class UserSession(Base):
+    """A server-side session. Named UserSession to avoid clashing with
+    SQLAlchemy's ``Session``; the table is ``sessions``."""
+
+    __tablename__ = "sessions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    # SHA-256 hex of the opaque token; the raw token is never stored.
+    token_hash: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    # Absolute deadline, fixed at creation.
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    # Moved forward on every use, for the sliding idle timeout.
+    last_used_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+    # Sudo elevation window (module 8); null until elevated.
+    sudo_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    ip: Mapped[str | None] = mapped_column(String)
+    user_agent: Mapped[str | None] = mapped_column(String)
+
+    def __repr__(self) -> str:
+        return f"UserSession(id={self.id!r}, user_id={self.user_id!r})"
