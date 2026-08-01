@@ -5,6 +5,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.db import get_session
+from app.dependencies import get_current_user
+from app.models import User
 from app.services.registration import register_user
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
@@ -35,3 +37,14 @@ def post_register(
         display_name=payload.display_name,
     )
     return RegisterResponse(status="ok")
+
+
+class MeResponse(BaseModel):
+    id: int
+    email: str
+    display_name: str
+
+
+@router.get("/me")
+def get_me(user: Annotated[User, Depends(get_current_user)]) -> MeResponse:
+    return MeResponse(id=user.id, email=user.email, display_name=user.display_name)
