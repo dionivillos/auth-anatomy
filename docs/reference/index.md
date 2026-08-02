@@ -21,6 +21,8 @@ together and where each responsibility lives in the code.
   error handling, and the request lifecycle.
 - [How a session works](sessions.md) — a token from creation to validation,
   sliding expiry, and revocation (module 02).
+- [How login works](login.md) — password verification, uniform timing, the
+  verify-then-rehash upgrade, anti session-fixation, and logout (module 02).
 
 More flow pages are added as the curriculum progresses.
 
