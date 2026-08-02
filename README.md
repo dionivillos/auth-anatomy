@@ -13,7 +13,7 @@ See [CLAUDE.md](CLAUDE.md) for the full technical spec and task plan.
 |---|---|---|
 | 00 | Project setup | Done |
 | 01 | Passwords & registration | Done |
-| 02 | Sessions from scratch | Not started |
+| 02 | Sessions from scratch | Done |
 | 03 | Email flows | Not started |
 | 04 | Hardening & PostgreSQL | Not started |
 | 05 | JWT from scratch | Not started |
