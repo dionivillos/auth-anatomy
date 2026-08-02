@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 
 from app.api.v1 import auth as api_auth
 from app.errors import ApiError
+from app.web import login as web_login
 from app.web import signup as web_signup
 from authcore.exceptions import PasswordPolicyError
 
@@ -35,3 +36,4 @@ async def handle_api_error(request: Request, exc: Exception) -> JSONResponse:
 
 app.include_router(api_auth.router)
 app.include_router(web_signup.router)
+app.include_router(web_login.router)
