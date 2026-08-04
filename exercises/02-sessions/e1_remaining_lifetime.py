@@ -35,4 +35,6 @@ def remaining_lifetime(
       3. Return `deadline - now`, but clamped to at least `timedelta(0)` (use
          `max(..., timedelta(0))`).
     """
-    raise NotImplementedError
+    idle_deadline = last_used_at + IDLE_TIMEOUT
+    deadline = min(idle_deadline, expires_at)
+    return max(deadline - now, timedelta(0))

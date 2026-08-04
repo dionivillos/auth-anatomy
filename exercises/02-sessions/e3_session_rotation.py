@@ -49,4 +49,6 @@ def evaluate_session(
          ROTATE_EVERY`). An invalid session is never rotated.
       3. Return `SessionDecision(valid=..., should_rotate=...)`.
     """
-    raise NotImplementedError
+    if not rules.is_expired(now, expires_at=expires_at, last_used_at=last_used_at):
+        return SessionDecision(valid=True, should_rotate=now - last_rotated_at >= ROTATE_EVERY)
+    return SessionDecision(valid=False, should_rotate=False)
