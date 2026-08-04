@@ -1,0 +1,15 @@
+# Local development services. Start with: docker compose up -d
+#
+# - Mailpit captures all outgoing email so nothing is sent for real in dev.
+#   SMTP on :1025 (what the app talks to), web UI on http://localhost:8025.
+#
+# PostgreSQL is added in module 04.
+
+services:
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: auth-anatomy-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP endpoint the app sends to
+      - "8025:8025" # web UI to read captured messages

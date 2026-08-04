@@ -1,0 +1,10 @@
+Hi {{ display_name }},
+
+Confirm your email address by opening this link:
+
+{{ verify_url }}
+
+This link expires in {{ expires_minutes }} minutes. If you did not create an
+account, you can safely ignore this message.
+
+— auth-anatomy
