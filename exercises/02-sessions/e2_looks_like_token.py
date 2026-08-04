@@ -29,4 +29,4 @@ def looks_like_token(value: str) -> bool:
       2. Every character of `value` is in `_BASE32_ALPHABET` (case-sensitive —
          our tokens are uppercase). `all(...)` over the characters works well.
     """
-    raise NotImplementedError
+    return (len(value) == _TOKEN_LENGTH) and (all(v in _BASE32_ALPHABET for v in value))
